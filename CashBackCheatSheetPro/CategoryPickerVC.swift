@@ -15,7 +15,6 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pickerView: UIPickerView!
-    let cards = ["Groceries", "Gas", "Travel"]
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
