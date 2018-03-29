@@ -8,31 +8,49 @@
 
 import UIKit
 
-class CategoryPickerVC: UIViewController {
+class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     var categoryArr = [Category]()
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pickerView: UIPickerView!
     
+    let cards = ["Groceries", "Gas", "Travel"]
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 100
-        
         seedCategories()
+        pickerView.delegate = self
+        pickerView.dataSource = self
         
 //        let card = Card()
 //        let rankingCardWithinCategory = RankingCardWithinCategory()
     }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        print("categoryArr.count: ", categoryArr.count)
+        return categoryArr.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        print("categoryArr[row]: ", categoryArr[row])
+        return categoryArr[row].name
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
     
+    
+
     func seedCategories(){
 //        let categories = ["Grocery Stores", "Restaurants & Coffee", "Wholesale Clubs", "Select Department Stores", "Gas", "Other", "Taxi", "Pharmacies"]
 //        for i in categories {
 //            CategoryModel.shared.create( i )
-//        }
-
+//    }
         categoryArr = CategoryModel.shared.getAll()
 
 //        print("category seeded with:", categoryArr )
@@ -67,7 +85,7 @@ extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
         
-        cell.cardTitleLabel.text = "\(indexPath.row)"
+        cell.cardTitleLabel.text = "AmexPreferred"
 //        cell.cardImage.image = // PLACEHOLDER FOR THE IMAGE
         
         return cell
