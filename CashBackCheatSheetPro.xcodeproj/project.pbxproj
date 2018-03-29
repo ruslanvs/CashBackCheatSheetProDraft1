@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6478F4C206D564C00EB4685 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6478F4B206D564C00EB4685 /* CardCell.swift */; };
 		A66855B9206D416000635192 /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66855B8206D416000635192 /* CoreDataModel.swift */; };
 		A6FE6347206D3D940089F06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FE6346206D3D940089F06C /* AppDelegate.swift */; };
 		A6FE634C206D3D940089F06C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6FE634A206D3D940089F06C /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A6478F4B206D564C00EB4685 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		A66855B8206D416000635192 /* CoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		A6FE6343206D3D940089F06C /* CashBackCheatSheetPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashBackCheatSheetPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6FE6346206D3D940089F06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				A6FE6346206D3D940089F06C /* AppDelegate.swift */,
 				A6FE634A206D3D940089F06C /* Main.storyboard */,
+				A6478F4B206D564C00EB4685 /* CardCell.swift */,
 				A66855B8206D416000635192 /* CoreDataModel.swift */,
 				A6FE6377206D3DE90089F06C /* CategoryPickerVC.swift */,
 				A6FE6350206D3D940089F06C /* Assets.xcassets */,
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6478F4C206D564C00EB4685 /* CardCell.swift in Sources */,
 				A6FE634F206D3D940089F06C /* CashBackCheatSheetPro.xcdatamodeld in Sources */,
 				A6FE6378206D3DE90089F06C /* CategoryPickerVC.swift in Sources */,
 				A66855B9206D416000635192 /* CoreDataModel.swift in Sources */,
