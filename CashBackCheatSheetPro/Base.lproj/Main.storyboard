@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Category PickerVC-->
+        <!--Cash Back Cheat Sheet Pro-->
         <scene sceneID="ypc-k6-GtS">
             <objects>
                 <viewController id="y0c-lY-O95" customClass="CategoryPickerVC" customModule="CashBackCheatSheetPro" customModuleProvider="target" sceneMemberID="viewController">
@@ -78,7 +78,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uXG-Gs-qPZ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="JTf-0i-hKa"/>
+                    <navigationItem key="navigationItem" title="Cash Back Cheat Sheet Pro" id="JTf-0i-hKa">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="2OS-su-vsu"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="DkO-tO-DAu" id="3YD-KO-Z5j"/>
                         <segue destination="gtY-O8-fhg" kind="show" identifier="cardDetails" id="MP3-G8-ear"/>
@@ -88,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="658" y="70"/>
         </scene>
-        <!--View Controller-->
+        <!--Card DetailsVC-->
         <scene sceneID="0eE-Hp-HWy">
             <objects>
-                <viewController id="gtY-O8-fhg" sceneMemberID="viewController">
+                <viewController id="gtY-O8-fhg" customClass="CardDetailsVC" customModule="CashBackCheatSheetPro" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rpg-NV-zCD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -10,6 +10,8 @@ import UIKit
 
 class CategoryPickerVC: UIViewController {
     
+    var categoryArr = [Category]()
+    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,7 +20,25 @@ class CategoryPickerVC: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 100
+        
+        seedCategories()
+        
+//        let card = Card()
+//        let rankingCardWithinCategory = RankingCardWithinCategory()
+    }
+    
+    func seedCategories(){
+//        let categories = ["Grocery Stores", "Restaurants & Coffee", "Wholesale Clubs", "Select Department Stores", "Gas", "Other", "Taxi", "Pharmacies"]
+//        for i in categories {
+//            CategoryModel.shared.create( i )
+//        }
 
+        categoryArr = CategoryModel.shared.getAll()
+
+//        print("category seeded with:", categoryArr )
+        for i in categoryArr {
+            print("category seeded with:", i.name )
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,6 +47,15 @@ class CategoryPickerVC: UIViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "cardDetails", sender: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cardDetailsVC = segue.destination as! CardDetailsVC
+        cardDetailsVC.card_title = "Blue Cash Preferred® Card from American Express"
+        cardDetailsVC.annual_fee = "$95"
+        cardDetailsVC.cash_back_terms = "6% cash back at U.S. supermarkets (on up to $6,000 per year in purchases, then 1%) - that means spending $60 a week at U.S. supermarkets could earn over $180 back per year. 3% cash back at U.S. gas stations and at select U.S. department stores, 1% back on other purchases."
+        cardDetailsVC.link_to_apply = "https://www.americanexpress.com/us/credit-cards/card-application/apply/amex-everyday-preferred-credit-card/25330-10-0?pmccode="
+        cardDetailsVC.other_terms = "Terms Apply"
     }
     
 }
@@ -39,6 +68,7 @@ extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
         
         cell.cardTitleLabel.text = "\(indexPath.row)"
+//        cell.cardImage.image = // PLACEHOLDER FOR THE IMAGE
         
         return cell
     }

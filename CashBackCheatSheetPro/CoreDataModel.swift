@@ -30,10 +30,14 @@ class CardModel {
         }
     }
     
-    func create(item text: String) -> Card {
+    func create(_ data: NSDictionary) -> Card {
         let item = NSEntityDescription.insertNewObject( forEntityName: "Card", into: managedObjectContext ) as! Card
 //        item.desc = text
 //        item.isBeasted = false
+        
+//        item.title = data
+//        item.annual_fee = data
+        
         saveContext()
         return item
     }
@@ -54,7 +58,7 @@ class CategoryModel  {
     
     static let shared = CategoryModel()
     
-    
+
     func getAll() -> [Category] {
         
         let request = NSFetchRequest<NSFetchRequestResult>( entityName: "Category" )
@@ -68,10 +72,11 @@ class CategoryModel  {
         }
     }
     
-    func create(item text: String) -> Category {
+    func create(_ data: String) -> Category {
         let item = NSEntityDescription.insertNewObject( forEntityName: "Category", into: managedObjectContext ) as! Category
         //        item.desc = text
         //        item.isBeasted = false
+        item.name = data
         saveContext()
         return item
     }
