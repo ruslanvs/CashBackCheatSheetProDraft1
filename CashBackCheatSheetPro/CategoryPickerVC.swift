@@ -15,7 +15,6 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pickerView: UIPickerView!
-    
     let cards = ["Groceries", "Gas", "Travel"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +24,6 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         seedCategories()
         pickerView.delegate = self
         pickerView.dataSource = self
-        
 //        let card = Card()
 //        let rankingCardWithinCategory = RankingCardWithinCategory()
     }
@@ -83,11 +81,16 @@ extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
         return 5
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
+        cell.cardImage.image = #imageLiteral(resourceName: "AmazonPrime.png")
         cell.cardTitleLabel.text = "AmexPreferred"
 //        cell.cardImage.image = // PLACEHOLDER FOR THE IMAGE
         
         return cell
     }
 }
+
+
+
+
