@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -112,26 +113,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mCR-Q4-HKz">
+                                <rect key="frame" x="37" y="102" width="310" height="169"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mCR-Q4-HKz" secondAttribute="height" multiplier="343:169" constant="-33" id="WAt-nF-rmo"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cash Back" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYI-Vl-5eK">
-                                <rect key="frame" x="16" y="125" width="343" height="21"/>
+                                <rect key="frame" x="16" y="320" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Annual Fee Outlet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z6a-ok-dxk">
-                                <rect key="frame" x="136" y="168" width="155" height="24"/>
+                                <rect key="frame" x="136" y="363" width="155" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Link Outlet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMV-IV-eIf">
-                                <rect key="frame" x="16" y="247" width="343" height="21"/>
+                                <rect key="frame" x="16" y="442" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="od0-pg-AaT">
-                                <rect key="frame" x="16" y="102" width="150" height="21"/>
+                                <rect key="frame" x="16" y="297" width="150" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="iA6-wo-JaJ"/>
                                 </constraints>
@@ -147,7 +154,7 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rk-S8-dAe">
-                                <rect key="frame" x="16" y="165" width="112" height="27"/>
+                                <rect key="frame" x="16" y="360" width="112" height="27"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Annual Fee: ">
                                         <attributes>
@@ -160,7 +167,7 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJ4-MF-MaK">
-                                <rect key="frame" x="16" y="306" width="118" height="27"/>
+                                <rect key="frame" x="16" y="501" width="118" height="27"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Other Terms:">
                                         <attributes>
@@ -173,7 +180,7 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OyD-c9-6ny">
-                                <rect key="frame" x="16" y="218" width="107.5" height="21"/>
+                                <rect key="frame" x="16" y="413" width="108" height="21"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Link To Apply:">
                                         <attributes>
@@ -186,7 +193,7 @@
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other Terms Outlet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbr-un-Q5e">
-                                <rect key="frame" x="16" y="341" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="536" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -198,8 +205,11 @@
                             <constraint firstItem="z6a-ok-dxk" firstAttribute="leading" secondItem="6rk-S8-dAe" secondAttribute="trailing" constant="8" id="3s2-u1-ZY4"/>
                             <constraint firstItem="Kbr-un-Q5e" firstAttribute="top" secondItem="PJ4-MF-MaK" secondAttribute="bottom" constant="8" id="52d-JD-6X5"/>
                             <constraint firstItem="PJ4-MF-MaK" firstAttribute="leading" secondItem="XyG-SK-GJD" secondAttribute="leading" constant="16" id="6Pe-P1-RUb"/>
+                            <constraint firstItem="mCR-Q4-HKz" firstAttribute="centerX" secondItem="Rpg-NV-zCD" secondAttribute="centerX" constant="4.5" id="6v0-OT-uDa"/>
                             <constraint firstItem="TJI-Je-tzk" firstAttribute="leading" secondItem="Rpg-NV-zCD" secondAttribute="leading" id="GZK-hy-xiw"/>
+                            <constraint firstItem="od0-pg-AaT" firstAttribute="top" secondItem="mCR-Q4-HKz" secondAttribute="bottom" constant="26" id="Gbc-aU-vce"/>
                             <constraint firstItem="OyD-c9-6ny" firstAttribute="leading" secondItem="XyG-SK-GJD" secondAttribute="leading" constant="16" id="Ksl-ZW-B9H"/>
+                            <constraint firstItem="mCR-Q4-HKz" firstAttribute="leading" secondItem="od0-pg-AaT" secondAttribute="leading" constant="21" id="NLr-YY-zUW"/>
                             <constraint firstItem="PJ4-MF-MaK" firstAttribute="top" secondItem="BMV-IV-eIf" secondAttribute="bottom" constant="38" id="PYM-Sl-TJq"/>
                             <constraint firstItem="BMV-IV-eIf" firstAttribute="leading" secondItem="XyG-SK-GJD" secondAttribute="leading" constant="16" id="Qi1-l3-eiS"/>
                             <constraint firstItem="OyD-c9-6ny" firstAttribute="top" secondItem="z6a-ok-dxk" secondAttribute="bottom" constant="26" id="SwI-1J-uhm"/>
@@ -209,10 +219,11 @@
                             <constraint firstItem="od0-pg-AaT" firstAttribute="leading" secondItem="Rpg-NV-zCD" secondAttribute="leadingMargin" id="bDt-eA-phx"/>
                             <constraint firstItem="TJI-Je-tzk" firstAttribute="centerX" secondItem="JYI-Vl-5eK" secondAttribute="centerX" id="bpX-fR-wsY"/>
                             <constraint firstItem="6rk-S8-dAe" firstAttribute="leading" secondItem="XyG-SK-GJD" secondAttribute="leading" constant="16" id="cHq-9g-iVM"/>
-                            <constraint firstItem="od0-pg-AaT" firstAttribute="top" secondItem="TJI-Je-tzk" secondAttribute="bottom" constant="8" symbolic="YES" id="o7i-5M-RHE"/>
+                            <constraint firstItem="od0-pg-AaT" firstAttribute="top" secondItem="TJI-Je-tzk" secondAttribute="bottom" constant="203" id="o7i-5M-RHE"/>
                             <constraint firstItem="TJI-Je-tzk" firstAttribute="top" secondItem="XyG-SK-GJD" secondAttribute="top" id="oaO-Kk-Z9j"/>
                             <constraint firstItem="XyG-SK-GJD" firstAttribute="trailing" secondItem="BMV-IV-eIf" secondAttribute="trailing" constant="16" id="p4v-Gw-rTT"/>
                             <constraint firstItem="BMV-IV-eIf" firstAttribute="top" secondItem="OyD-c9-6ny" secondAttribute="bottom" constant="8" id="tRO-Gs-QUu"/>
+                            <constraint firstItem="mCR-Q4-HKz" firstAttribute="top" secondItem="TJI-Je-tzk" secondAttribute="bottom" constant="8" id="unZ-oA-WHy"/>
                             <constraint firstItem="6rk-S8-dAe" firstAttribute="top" secondItem="JYI-Vl-5eK" secondAttribute="bottom" constant="19" id="vYg-zG-gDq"/>
                             <constraint firstItem="Kbr-un-Q5e" firstAttribute="leading" secondItem="XyG-SK-GJD" secondAttribute="leading" constant="16" id="xFX-OY-ddX"/>
                             <constraint firstItem="z6a-ok-dxk" firstAttribute="top" secondItem="JYI-Vl-5eK" secondAttribute="bottom" constant="22" id="yo8-fA-NPd"/>
@@ -225,6 +236,7 @@
                         <outlet property="annualFeeOutlet" destination="z6a-ok-dxk" id="bcG-DN-332"/>
                         <outlet property="cardTitleOutlet" destination="TJI-Je-tzk" id="a3f-8z-o9p"/>
                         <outlet property="cashBackOutlet" destination="JYI-Vl-5eK" id="gBQ-BE-ztl"/>
+                        <outlet property="imageOutlet" destination="mCR-Q4-HKz" id="Jxp-1A-A3D"/>
                         <outlet property="linkToApplyOutlet" destination="BMV-IV-eIf" id="DC2-3Z-k8f"/>
                     </connections>
                 </viewController>
