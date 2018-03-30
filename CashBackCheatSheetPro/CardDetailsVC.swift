@@ -32,12 +32,20 @@ class CardDetailsVC: UIViewController {
         print("annual_fee: ", annual_fee!)
         annualFeeOutlet.text = annual_fee!
         print("link_to_apply: ", link_to_apply!)
-        linkToApplyOutlet.text = link_to_apply!
+//        linkToApplyOutlet.text = link_to_apply!
         print("other_terms: ", other_terms!)
         OtherTermsOutlet.text = other_terms!
         imageOutlet.image = image!
     }
-
+    @IBAction func ApplyButton(_ sender: UIButton) {
+        openUrl(urlStr: link_to_apply!)
+    }
+    func openUrl(urlStr: String!){
+        if let url = NSURL(string: urlStr){
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
