@@ -15,10 +15,8 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     var cardArr = [Card]()
     var rankingCardInCategoryArr = [RankingCardWithinCategory]()
     
-//    var card: Card!
-//    var category: Category!
-//    var rankingCardWithinCategory: RankingCardWithinCategory!
-
+    var cardArray: [String] = []
+    var fullCardArray: [Card] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pickerView: UIPickerView!
@@ -27,21 +25,33 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 100
-
         pickerView.delegate = self
         pickerView.dataSource = self
         
 //        seedCategories()
 //        seedCards()
 //        seedRankingCardWithinCategory()
-        
+        printEntities()
         
         cardArr = CardModel.shared.getAll()
         categoryArr = CategoryModel.shared.getAll()
         rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
-        
-        printEntities()
-        
+
+    }
+    override func viewWillAppear(_ animated: Bool){
+        print("Load")
+        pullFunction()
+    }
+    func pullFunction() {
+        cardArray = []
+        for i in cardArr {
+            self.cardArray.append(i.title!)
+        }
+        for i in cardArr {
+            
+            self.fullCardArray.append(i)
+            print("self.fullCardArray: ", self.fullCardArray[0].title!)
+        }
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -55,7 +65,6 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         return categoryArr[row].name
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
     }
     
     func printEntities(){
@@ -72,11 +81,7 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         print("******** Ranks seeded with: ********")
         for i in rankingCardInCategoryArr {
             print("category \(i.category!.name!), rank \(i.rank), card: \(i.card!.title!)")
-//            print( , ,  )
-//            print( i.rank, i.card!.title )
         }
-
-
     }
 
     func seedCategories(){
@@ -226,16 +231,19 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "cardDetails", sender: indexPath)
+        print("click")
+        performSegue(withIdentifier: "cardDetails", sender: indexPath.row)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexRow = sender as? Int {
         let cardDetailsVC = segue.destination as! CardDetailsVC
-        cardDetailsVC.card_title = "Blue Cash Preferred® Card from American Express"
-        cardDetailsVC.annual_fee = "$95"
-        cardDetailsVC.cash_back_terms = "6% cash back at U.S. supermarkets (on up to $6,000 per year in purchases, then 1%) - that means spending $60 a week at U.S. supermarkets could earn over $180 back per year. 3% cash back at U.S. gas stations and at select U.S. department stores, 1% back on other purchases."
-        cardDetailsVC.link_to_apply = "https://www.americanexpress.com/us/credit-cards/card-application/apply/amex-everyday-preferred-credit-card/25330-10-0?pmccode="
-        cardDetailsVC.other_terms = "Terms Apply"
+        cardDetailsVC.card_title = "\(self.fullCardArray[indexRow].title!)"
+        cardDetailsVC.annual_fee = "\(self.fullCardArray[indexRow].annual_fee!)"
+        cardDetailsVC.cash_back_terms = "\(self.fullCardArray[indexRow].cash_back_terms!)"
+        cardDetailsVC.link_to_apply = "\(self.fullCardArray[indexRow].link_to_apply!)"
+        cardDetailsVC.other_terms = "\(self.fullCardArray[indexRow].other_terms!)"
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -246,19 +254,50 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 
 extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return cardArr.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
         cell.cardImage.image = #imageLiteral(resourceName: "AmazonPrime.png")
-        cell.cardTitleLabel.text = "AmexPreferred"
+        
+
+        cell.cardTitleLabel.text = "\(cardArray[indexPath.row])"
+        
+
 //        cell.cardImage.image = // PLACEHOLDER FOR THE IMAGE
         
         return cell
     }
 }
+//func printEntities(){
+//    categoryArr = CategoryModel.shared.getAll()
+//    print("******** Category seeded with: *********")
+//    for i in categoryArr {
+//        print( i.name! )
+//    }
+//    cardArr = CardModel.shared.getAll()
+//    print("******** Card seeded with: *********")
+//    for i in cardArr {
+//        print( i.title!, i.annual_fee!, i.cash_back_terms!, i.link_to_apply!, i.other_terms! )
+//    }
+//    print("******** Ranks seeded with: ********")
+//    for i in rankingCardInCategoryArr {
+//        print("category \(i.category!.name!), rank \(i.rank), card: \(i.card!.title!)")
+//    }
+//}
 
+//******** Category seeded with: *********
+//Grocery Stores
+//Restaurants & Coffee
+//Wholesale Clubs
+//Select Department Stores
+//Gas
+//Other
+//Taxi
+//Pharmacies
 
-
+//******** Card seeded with: *********
+//Amex Preferred $95 6% cash back at U.S. supermarkets (on up to $6,000 per year in purchases, then 1%) - that means spending $60 a week at U.S. supermarkets could earn over $180 back per year. 3% cash back at U.S. gas stations and at select U.S. department stores, 1% back on other purchases. https://www.americanexpress.com/us/credit-cards/card-application/apply/amex-everyday-preferred-credit-card/25330-10-0?pmccode= Terms Apply
+//Discover it $0 Cash back terms for Discover it Link to apply for Discover it Terms Apply
 
