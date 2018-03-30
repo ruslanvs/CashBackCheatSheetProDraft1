@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import CoreData //>> refactor to modularize
 
 class CategoryPickerVC: UIViewController {
     
     var categoryArr = [Category]()
+    var cardArr = [Card]()
+    var rankingCardInCategoryArr = [RankingCardWithinCategory]()
     
+//    var card: Card!
+//    var category: Category!
+//    var rankingCardWithinCategory: RankingCardWithinCategory!
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,29 +28,90 @@ class CategoryPickerVC: UIViewController {
         tableView.delegate = self
         tableView.rowHeight = 100
         
-        seedCategories()
+//        seedCategories()
+//        seedCards()
+//        seedRankingCardWithinCategory()
         
-//        let card = Card()
-//        let rankingCardWithinCategory = RankingCardWithinCategory()
+        cardArr = CardModel.shared.getAll()
+        categoryArr = CategoryModel.shared.getAll()
+        rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
+        
     }
     
     func seedCategories(){
-//        let categories = ["Grocery Stores", "Restaurants & Coffee", "Wholesale Clubs", "Select Department Stores", "Gas", "Other", "Taxi", "Pharmacies"]
-//        for i in categories {
-//            CategoryModel.shared.create( i )
-//        }
+        let categories = ["Grocery Stores", "Restaurants & Coffee", "Wholesale Clubs", "Select Department Stores", "Gas", "Other", "Taxi", "Pharmacies"]
+        for i in categories {
+            CategoryModel.shared.create( i )
+        }
 
         categoryArr = CategoryModel.shared.getAll()
-
-//        print("category seeded with:", categoryArr )
         for i in categoryArr {
             print("category seeded with:", i.name )
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func seedCards(){
+        let cards = [
+            [
+                "card_title": "Amex Preferred",
+                "annual_fee": "$95",
+                "cash_back_terms": "6% cash back at U.S. supermarkets (on up to $6,000 per year in purchases, then 1%) - that means spending $60 a week at U.S. supermarkets could earn over $180 back per year. 3% cash back at U.S. gas stations and at select U.S. department stores, 1% back on other purchases.",
+                "link_to_apply": "https://www.americanexpress.com/us/credit-cards/card-application/apply/amex-everyday-preferred-credit-card/25330-10-0?pmccode=",
+                "other_terms": "Terms Apply"
+                ],
+            [
+                "card_title": "Discover it",
+                "annual_fee": "$0",
+                "cash_back_terms": "Cash back terms for Discover it",
+                "link_to_apply": "Link to apply for Discover it",
+                "other_terms": "Terms Apply"
+            ],
+        ]
+        
+        for i in cards {
+            CardModel.shared.create( title: i["card_title"]!, annual_fee: i["annual_fee"]!, cash_back_terms: i["cash_back_terms"]!, link_to_apply: i["link_to_apply"]!, other_terms: i["other_terms"]! )
+        }
+        
+        cardArr = CardModel.shared.getAll()
+        for i in cardArr {
+            print( "card seeded with:", i.title, i.annual_fee, i.cash_back_terms, i.link_to_apply, i.other_terms )
+        }
     }
+    
+    
+    func seedRankingCardWithinCategory() {
+        let ranks = [ 0, 1 ]
+        
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[0], category: categoryArr[0] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[1], category: categoryArr[0] )
+        
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[0], category: categoryArr[1] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[1], category: categoryArr[1] )
+
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[0], category: categoryArr[2] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[1], category: categoryArr[2] )
+
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[0], category: categoryArr[3] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[1], category: categoryArr[3] )
+
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[0], category: categoryArr[4] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[1], category: categoryArr[4] )
+
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[0], category: categoryArr[5] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[1], category: categoryArr[5] )
+
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[0], category: categoryArr[6] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[1], category: categoryArr[6] )
+
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[1]), card: cardArr[0], category: categoryArr[7] )
+        RankingCardWithinCategoryModel.shared.create( rank: Int16(ranks[0]), card: cardArr[1], category: categoryArr[7] )
+
+        var rankingCardInCategoryArr = [RankingCardWithinCategory]()
+        for i in rankingCardInCategoryArr {
+            print( "ranking seeded with:", i.rank, i.card?.title, i.category?.name )
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "cardDetails", sender: indexPath)
@@ -58,6 +126,10 @@ class CategoryPickerVC: UIViewController {
         cardDetailsVC.other_terms = "Terms Apply"
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
 }
 
 extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {

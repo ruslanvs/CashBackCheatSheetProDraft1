@@ -16,7 +16,6 @@ class CardModel {
     
     static let shared = CardModel()
     
-    
     func getAll() -> [Card] {
         
         let request = NSFetchRequest<NSFetchRequestResult>( entityName: "Card" )
@@ -30,13 +29,13 @@ class CardModel {
         }
     }
     
-    func create(_ data: NSDictionary) -> Card {
+    func create( title: String, annual_fee: String, cash_back_terms: String, link_to_apply: String, other_terms: String ) -> Card {
         let item = NSEntityDescription.insertNewObject( forEntityName: "Card", into: managedObjectContext ) as! Card
-//        item.desc = text
-//        item.isBeasted = false
-        
-//        item.title = data
-//        item.annual_fee = data
+        item.title = title
+        item.annual_fee = annual_fee
+        item.cash_back_terms = cash_back_terms
+        item.link_to_apply = link_to_apply
+        item.other_terms = other_terms
         
         saveContext()
         return item
@@ -52,7 +51,49 @@ class CardModel {
     }
 }
 
-class CategoryModel  {
+class RankingCardWithinCategoryModel {
+    private var managedObjectContext = ( UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
+    private var appDelegate = ( UIApplication.shared.delegate as! AppDelegate )
+    
+    static let shared = RankingCardWithinCategoryModel()
+    
+    
+    func getAll() -> [RankingCardWithinCategory] {
+        
+        let request = NSFetchRequest<NSFetchRequestResult>( entityName: "RankingCardWithinCategory" )
+        
+        //        request.predicate = NSPredicate( format: "isBeasted = %@", beastedState as CVarArg )
+        do {
+            return try managedObjectContext.fetch( request ) as! [RankingCardWithinCategory]
+        } catch {
+            print( error )
+            return []
+        }
+    }
+    
+    func create( rank: Int16, card: Card, category: Category ) -> RankingCardWithinCategory {
+        let item = NSEntityDescription.insertNewObject( forEntityName: "RankingCardWithinCategory", into: managedObjectContext ) as! RankingCardWithinCategory
+
+        item.rank = rank
+        item.card = card
+        item.category = category
+        
+        saveContext()
+        return item
+    }
+    
+    func delete(_ item: RankingCardWithinCategory) {
+        managedObjectContext.delete(item)
+        saveContext()
+    }
+    
+    func saveContext() {
+        appDelegate.saveContext()
+    }
+}
+
+
+class CategoryModel {
     private var managedObjectContext = ( UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     private var appDelegate = ( UIApplication.shared.delegate as! AppDelegate )
     
@@ -89,10 +130,8 @@ class CategoryModel  {
     func saveContext() {
         appDelegate.saveContext()
     }
-
-    
 }
 
-class MerchantModel  {
+class MerchantModel {
     
 }
