@@ -43,6 +43,7 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         print("Load")
         pullFunction()
     }
+    
     func pullFunction() {
         cardArray = []
         for i in cardArr {
@@ -54,9 +55,18 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
             print("self.fullCardArray: ", self.fullCardArray[0].title!)
         }
     }
+    func refreshView() {
+        print("*****refreshView*****")
+        cardArr = CardModel.shared.getAll()
+        categoryArr = CategoryModel.shared.getAll()
+        rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
+        tableView.reloadData()
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 //        print("categoryArr.count: ", categoryArr.count)
         return categoryArr.count
@@ -66,7 +76,8 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         return categoryArr[row].name
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    }
+        
+        }
     
     func printEntities(){
         categoryArr = CategoryModel.shared.getAll()
