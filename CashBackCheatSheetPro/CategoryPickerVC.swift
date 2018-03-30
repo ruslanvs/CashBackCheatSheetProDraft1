@@ -350,34 +350,20 @@ extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
-//func printEntities(){
-//    categoryArr = CategoryModel.shared.getAll()
-//    print("******** Category seeded with: *********")
-//    for i in categoryArr {
-//        print( i.name! )
-//    }
-//    cardArr = CardModel.shared.getAll()
-//    print("******** Card seeded with: *********")
-//    for i in cardArr {
-//        print( i.title!, i.annual_fee!, i.cash_back_terms!, i.link_to_apply!, i.other_terms! )
-//    }
-//    print("******** Ranks seeded with: ********")
-//    for i in rankingCardInCategoryArr {
-//        print("category \(i.category!.name!), rank \(i.rank), card: \(i.card!.title!)")
-//    }
-//}
-
-//******** Category seeded with: *********
-//Grocery Stores
-//Restaurants & Coffee
-//Wholesale Clubs
-//Select Department Stores
-//Gas
-//Other
-//Taxi
-//Pharmacies
-
-//******** Card seeded with: *********
-//Amex Preferred $95 6% cash back at U.S. supermarkets (on up to $6,000 per year in purchases, then 1%) - that means spending $60 a week at U.S. supermarkets could earn over $180 back per year. 3% cash back at U.S. gas stations and at select U.S. department stores, 1% back on other purchases. https://www.americanexpress.com/us/credit-cards/card-application/apply/amex-everyday-preferred-credit-card/25330-10-0?pmccode= Terms Apply
-//Discover it $0 Cash back terms for Discover it Link to apply for Discover it Terms Apply
-
+extension Card {
+    class func findCard(category: String) {
+        
+    }
+}
+//    // Create Mutable Set
+//    let users = account.mutableSetValue(forKey: #keyPath(Account.users))
+//
+//    // Add User
+//    users.add(user)
+////        Card - To Many - (ranking_within_category - RankingCardWithinCategory - card)
+//let cardrank = RankingCardWithinCategory(context: managedObjectContext)
+////        Category - To Many - ( ranking_of_cards - RankingCardWithinCategory - categories)
+//let categoryrank = RankingCardWithinCategory(context: managedObjectContext)
+////        RankingCardWithinCategory - to One (category - Category - ranking_of_cards)
+//
+////        RankingCardWithinCategory() To One (card - Card - ranking_of_categories)
