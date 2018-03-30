@@ -203,13 +203,13 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 
 
         ]
-//        if string == "Grocery Stores" {
-//            print("Cards[0]:", cards[0])
-//            var cardArray: AnyObject = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
-//            for i in cardArray {
-//                print("I:", i["card_title"]!)
-//            }
-//        }
+        if string == "Grocery Stores" {
+            print("Cards[0]:", cards[0])
+            var cardArray = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+            for i in cardArray {
+                print("I:", i["card_title"]!)
+            }
+        }
 //        if string == "Restaurants & Coffee" {
 //            print("Restaurants & Coffee")
 //             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
@@ -239,7 +239,7 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 //             let cardSeed = [[cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
 //        }
         
-        for i in cardArray {
+        for i in cards {
             CardModel.shared.create( title: i["card_title"]!, annual_fee: i["annual_fee"]!, cash_back_terms: i["cash_back_terms"]!, link_to_apply: i["link_to_apply"]!, other_terms: i["other_terms"]! )
         }
         
