@@ -35,27 +35,49 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 //        seedCards()
 //        seedRankingCardWithinCategory()
         
+        
         cardArr = CardModel.shared.getAll()
         categoryArr = CategoryModel.shared.getAll()
         rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
+        
+        printEntities()
         
     }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        print("categoryArr.count: ", categoryArr.count)
+//        print("categoryArr.count: ", categoryArr.count)
         return categoryArr.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        print("categoryArr[row]: ", categoryArr[row])
+//        print("categoryArr[row]: ", categoryArr[row])
         return categoryArr[row].name
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
     }
     
-    
+    func printEntities(){
+        categoryArr = CategoryModel.shared.getAll()
+        print("******** Category seeded with: *********")
+        for i in categoryArr {
+            print( i.name! )
+        }
+        cardArr = CardModel.shared.getAll()
+        print("******** Card seeded with: *********")
+        for i in cardArr {
+            print( i.title!, i.annual_fee!, i.cash_back_terms!, i.link_to_apply!, i.other_terms! )
+        }
+        print("******** Ranks seeded with: ********")
+        for i in rankingCardInCategoryArr {
+            print("category \(i.category!.name!), rank \(i.rank), card: \(i.card!.title!)")
+//            print( , ,  )
+//            print( i.rank, i.card!.title )
+        }
+
+
+    }
 
     func seedCategories(){
         let categories = ["Grocery Stores", "Restaurants & Coffee", "Wholesale Clubs", "Select Department Stores", "Gas", "Other", "Taxi", "Pharmacies"]
