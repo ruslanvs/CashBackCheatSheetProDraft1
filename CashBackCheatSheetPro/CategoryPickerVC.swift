@@ -29,9 +29,9 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         pickerView.delegate = self
         pickerView.dataSource = self
         
-//        seedCategories()
-//        seedCards()
-//        seedRankingCardWithinCategory()
+        seedCategories()
+        seedCards()
+        seedRankingCardWithinCategory()
         printEntities()
         
         cardArr = CardModel.shared.getAll()
@@ -40,6 +40,7 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 
     }
     override func viewWillAppear(_ animated: Bool){
+        
         print("Load")
         pullFunction()
     }
@@ -56,12 +57,30 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         }
     }
     func refreshView() {
+        deleteAllCards(cards: cardArr)
+        deleteAllCategories(categories: categoryArr)
+        deleteAllRankings(rankings: rankingCardInCategoryArr)
+        seedCategories()
+        seedCards()
+        seedRankingCardWithinCategory()
         print("*****refreshView*****")
         cardArr = CardModel.shared.getAll()
         categoryArr = CategoryModel.shared.getAll()
         rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
         tableView.reloadData()
     }
+    func deleteAllCategories(categories: [Category]) {
+        print("***** Delete All Cards*****")
+        for i in categories {
+            CategoryModel.shared.delete(i)
+        }
+    }
+    func deleteAllRankings(rankings: [RankingCardWithinCategory]) {
+        for i in rankings {
+            RankingCardWithinCategoryModel.shared.delete(i)
+        }
+    }
+    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -76,9 +95,18 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         return categoryArr[row].name
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("click")
+        print("New Category: ", categoryArr[row].name!)
+//            reorderCards(category: categoryArr[row].name!)
+            refreshView()
+        
         
         }
-    
+//    func reorderCards(category: String) {
+//        print("**** reorderCards ******")
+//        print("category: ", category)
+//    }
+//
     func printEntities(){
         categoryArr = CategoryModel.shared.getAll()
         print("******** Category seeded with: *********")
@@ -191,7 +219,12 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 //            print( "card seeded with:", i.title, i.annual_fee, i.cash_back_terms, i.link_to_apply, i.other_terms )
 //        }
     }
-    
+    func deleteAllCards(cards: [Card]) {
+        print("***** Delete All Cards*****")
+        for i in cards {
+            CardModel.shared.delete(i)
+        }
+    }
     
     func seedRankingCardWithinCategory() {
         let ranks = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]

@@ -32,7 +32,6 @@ class CardDetailsVC: UIViewController {
         print("annual_fee: ", annual_fee!)
         annualFeeOutlet.text = annual_fee!
         print("link_to_apply: ", link_to_apply!)
-//        linkToApplyOutlet.text = link_to_apply!
         print("other_terms: ", other_terms!)
         OtherTermsOutlet.text = other_terms!
         imageOutlet.image = image!
