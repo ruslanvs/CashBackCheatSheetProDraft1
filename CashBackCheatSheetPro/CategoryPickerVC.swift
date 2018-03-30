@@ -14,7 +14,8 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     var categoryArr = [Category]()
     var cardArr = [Card]()
     var rankingCardInCategoryArr = [RankingCardWithinCategory]()
-    
+    var image: [UIImage] = [#imageLiteral(resourceName: "AmexBlueCashE.png"),#imageLiteral(resourceName: "DiscoverIT.png"),#imageLiteral(resourceName: "ChaseFreedom.png"),#imageLiteral(resourceName: "AmexBlueCashE.png"),#imageLiteral(resourceName: "SavorBlueDining.png"),#imageLiteral(resourceName: "CitiDoubleCash.png"),#imageLiteral(resourceName: "ChaseFreedomUnlimited.png"),#imageLiteral(resourceName: "WellsFargoCash.png")]
+    var image1: Dictionary = ["Amex Preferred" : 0, "Discover it" : 1, "Chase Freedom" : 2, "AmEx Blue Cash Everyday": 3, "Savor® Dining Rewards": 4, "Citi® Double Cash Card": 5, "Chase Freedom Unlimited": 6, "Wells Fargo Cash Wise Visa Card": 7]
     var cardArray: [String] = []
     var fullCardArray: [Card] = []
     
@@ -243,6 +244,7 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         cardDetailsVC.cash_back_terms = "\(self.fullCardArray[indexRow].cash_back_terms!)"
         cardDetailsVC.link_to_apply = "\(self.fullCardArray[indexRow].link_to_apply!)"
         cardDetailsVC.other_terms = "\(self.fullCardArray[indexRow].other_terms!)"
+        cardDetailsVC.image = self.image[indexRow]
         }
     }
     
@@ -259,8 +261,13 @@ extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
-        cell.cardImage.image = #imageLiteral(resourceName: "AmazonPrime.png")
-        
+        cell.cardImage.image = self.image[indexPath.row]
+        for key in self.image1 {
+            if cardArray[indexPath.row] == "\(key)" {
+                print("*********MATCH*********")
+                cell.cardImage.image = self.image[indexPath.row]
+            }
+        }
 
         cell.cardTitleLabel.text = "\(cardArray[indexPath.row])"
         

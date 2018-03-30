@@ -15,6 +15,7 @@ class CardDetailsVC: UIViewController {
     var cash_back_terms: String?
     var link_to_apply: String?
     var other_terms: String?
+    var image: UIImage?
 
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var OtherTermsOutlet: UILabel!
@@ -34,7 +35,7 @@ class CardDetailsVC: UIViewController {
         linkToApplyOutlet.text = link_to_apply!
         print("other_terms: ", other_terms!)
         OtherTermsOutlet.text = other_terms!
-        imageOutlet.image = #imageLiteral(resourceName: "AmazonPrime.png")
+        imageOutlet.image = image!
     }
 
     override func didReceiveMemoryWarning() {
