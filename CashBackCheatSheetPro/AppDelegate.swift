@@ -16,7 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let managedObjectContext = persistentContainer.viewContext
+//        Card - To Many - (ranking_within_category - RankingCardWithinCategory - card)
+        let cardrank = RankingCardWithinCategory(context: managedObjectContext)
+//        Category - To Many - ( ranking_of_cards - RankingCardWithinCategory - categories)
+        let categoryrank = RankingCardWithinCategory(context: managedObjectContext)
+//        RankingCardWithinCategory - to One (category - Category - ranking_of_cards)
+    
+//        RankingCardWithinCategory() To One (card - Card - ranking_of_categories)
         return true
     }
 
