@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Card" representedClassName=".Card" syncable="YES" codeGenerationType="class">
         <attribute name="annual_fee" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cash_back_terms" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="category_code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link_to_apply" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="other_terms" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ranking_within_category" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RankingCardWithinCategory" inverseName="card" inverseEntity="RankingCardWithinCategory" syncable="YES"/>
     </entity>
     <entity name="Category" representedClassName=".Category" syncable="YES" codeGenerationType="class">
+        <attribute name="cards_word" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="ranking_of_cards" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RankingCardWithinCategory" inverseName="category" inverseEntity="RankingCardWithinCategory" syncable="YES"/>
     </entity>
@@ -19,8 +21,8 @@
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="ranking_of_cards" inverseEntity="Category" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-119" positionY="-175" width="128" height="133"/>
-        <element name="Category" positionX="234" positionY="-63" width="128" height="73"/>
+        <element name="Card" positionX="-119" positionY="-175" width="128" height="148"/>
+        <element name="Category" positionX="234" positionY="-63" width="128" height="88"/>
         <element name="Merchant" positionX="97" positionY="-252" width="128" height="45"/>
         <element name="RankingCardWithinCategory" positionX="61" positionY="-25" width="128" height="88"/>
     </elements>

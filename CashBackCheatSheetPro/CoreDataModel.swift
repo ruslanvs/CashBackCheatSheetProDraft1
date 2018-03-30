@@ -16,11 +16,19 @@ class CardModel {
     
     static let shared = CardModel()
     
-    func getAll() -> [Card] {
-        
+    func getAll( for cards_word: String? = nil ) -> [Card] {
+    
         let request = NSFetchRequest<NSFetchRequestResult>( entityName: "Card" )
         
-//        request.predicate = NSPredicate( format: "isBeasted = %@", beastedState as CVarArg )
+        if cards_word != nil{
+//            request.predicate = NSPredicate( format: "category_code = %@", cards_word as! CVarArg )
+            request.predicate = NSPredicate( format: "%K < %@", "category_code", cards_word as! CVarArg )
+//            request.predicate = NSPredicate( format: "category_code < %@", cards_word )
+        }
+        
+//        request.predicate = NSPredicate( format: "ranking_within_category = %@", ranking_within_category as! CVarArg )
+
+        
         do {
             return try managedObjectContext.fetch( request ) as! [Card]
         } catch {
@@ -29,13 +37,15 @@ class CardModel {
         }
     }
     
-    func create( title: String, annual_fee: String, cash_back_terms: String, link_to_apply: String, other_terms: String ) -> Card {
+    func create( title: String, annual_fee: String, cash_back_terms: String, link_to_apply: String, other_terms: String, category_code: String ) -> Card {
         let item = NSEntityDescription.insertNewObject( forEntityName: "Card", into: managedObjectContext ) as! Card
         item.title = title
         item.annual_fee = annual_fee
         item.cash_back_terms = cash_back_terms
         item.link_to_apply = link_to_apply
         item.other_terms = other_terms
+        
+        item.category_code = category_code
         
         saveContext()
         return item
@@ -113,11 +123,12 @@ class CategoryModel {
         }
     }
     
-    func create(_ data: String) -> Category {
+    func create( name: String, cards_word: String ) -> Category {
         let item = NSEntityDescription.insertNewObject( forEntityName: "Category", into: managedObjectContext ) as! Category
         //        item.desc = text
         //        item.isBeasted = false
-        item.name = data
+        item.name = name
+        item.cards_word = cards_word
         saveContext()
         return item
     }
