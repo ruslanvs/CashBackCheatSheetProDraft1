@@ -10,7 +10,7 @@ import UIKit
 import CoreData //>> refactor to modularize
 
 class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
+    var categoryPicked = "Grocery Stores"
     var categoryArr = [Category]()
     var cardArr = [Card]()
     var rankingCardInCategoryArr = [RankingCardWithinCategory]()
@@ -23,24 +23,17 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     @IBOutlet weak var pickerView: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 100
         pickerView.delegate = self
         pickerView.dataSource = self
         
-//        seedCategories()
-//        seedCards()
-//        seedRankingCardWithinCategory()
-        printEntities()
-        
-        cardArr = CardModel.shared.getAll()
-        categoryArr = CategoryModel.shared.getAll()
-        rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
 
     }
     override func viewWillAppear(_ animated: Bool){
-        print("Load")
+        refreshView()
         pullFunction()
     }
     
@@ -57,10 +50,28 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     }
     func refreshView() {
         print("*****refreshView*****")
+        deleteAllCards(cards: cardArr)
+        deleteAllCategories(categories: categoryArr)
+        deleteAllRankings(rankings: rankingCardInCategoryArr)
+        seedCards(string: self.categoryPicked)
+        seedCategories()
+        seedRankingCardWithinCategory()
         cardArr = CardModel.shared.getAll()
         categoryArr = CategoryModel.shared.getAll()
         rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
         tableView.reloadData()
+    }
+    func deleteAllCategories(categories: [Category]) {
+        print("***** Delete All Categories*****")
+        for i in categories {
+            CategoryModel.shared.delete(i)
+        }
+    }
+    func deleteAllRankings(rankings: [RankingCardWithinCategory]) {
+        print("***** Delete All Categories*****")
+        for i in rankings {
+            RankingCardWithinCategoryModel.shared.delete(i)
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -82,7 +93,11 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 
         tableView.reloadData()
         }
-    
+//    func reorderCards(category: String) {
+//        print("**** reorderCards ******")
+//        print("category: ", category)
+//    }
+//
     func printEntities(){
         categoryArr = CategoryModel.shared.getAll()
         print("******** Category seeded with: *********")
@@ -131,7 +146,9 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 //        }
     }
     
-    func seedCards(){
+    func seedCards(string: String){
+        print("****seed cards ****", self.categoryPicked)
+
         let cards = [
             [
                 "card_title": "Amex Preferred",
@@ -203,6 +220,41 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 
 
         ]
+        if string == "Grocery Stores" {
+            print("Cards[0]:", cards[0])
+            var cardArray = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+            for i in cardArray {
+                print("I:", i["card_title"]!)
+            }
+        }
+//        if string == "Restaurants & Coffee" {
+//            print("Restaurants & Coffee")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Gas" {
+//            print("Gas")
+//            let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Pharmacies" {
+//            print("Pharmacies")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Wholesale Clubs" {
+//            print("Wholesale Clubs")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Select Department Stores" {
+//            print("Select Department Stores")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Taxi" {
+//            print("Taxi")
+//             let cardSeed = [[cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Other" {
+//            print("Other")
+//             let cardSeed = [[cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
         
         for i in cards {
             CardModel.shared.create( title: i["card_title"]!, annual_fee: i["annual_fee"]!, cash_back_terms: i["cash_back_terms"]!, link_to_apply: i["link_to_apply"]!, other_terms: i["other_terms"]!, category_code: i["category_code"]! )
@@ -213,7 +265,12 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 //            print( "card seeded with:", i.title, i.annual_fee, i.cash_back_terms, i.link_to_apply, i.other_terms )
 //        }
     }
-    
+    func deleteAllCards(cards: [Card]) {
+        print("***** Delete All Cards*****")
+        for i in cards {
+            CardModel.shared.delete(i)
+        }
+    }
     
     func seedRankingCardWithinCategory() {
         let ranks = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
@@ -310,34 +367,20 @@ extension CategoryPickerVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
-//func printEntities(){
-//    categoryArr = CategoryModel.shared.getAll()
-//    print("******** Category seeded with: *********")
-//    for i in categoryArr {
-//        print( i.name! )
-//    }
-//    cardArr = CardModel.shared.getAll()
-//    print("******** Card seeded with: *********")
-//    for i in cardArr {
-//        print( i.title!, i.annual_fee!, i.cash_back_terms!, i.link_to_apply!, i.other_terms! )
-//    }
-//    print("******** Ranks seeded with: ********")
-//    for i in rankingCardInCategoryArr {
-//        print("category \(i.category!.name!), rank \(i.rank), card: \(i.card!.title!)")
-//    }
-//}
-
-//******** Category seeded with: *********
-//Grocery Stores
-//Restaurants & Coffee
-//Wholesale Clubs
-//Select Department Stores
-//Gas
-//Other
-//Taxi
-//Pharmacies
-
-//******** Card seeded with: *********
-//Amex Preferred $95 6% cash back at U.S. supermarkets (on up to $6,000 per year in purchases, then 1%) - that means spending $60 a week at U.S. supermarkets could earn over $180 back per year. 3% cash back at U.S. gas stations and at select U.S. department stores, 1% back on other purchases. https://www.americanexpress.com/us/credit-cards/card-application/apply/amex-everyday-preferred-credit-card/25330-10-0?pmccode= Terms Apply
-//Discover it $0 Cash back terms for Discover it Link to apply for Discover it Terms Apply
-
+extension Card {
+    class func findCard(category: String) {
+        
+    }
+}
+//    // Create Mutable Set
+//    let users = account.mutableSetValue(forKey: #keyPath(Account.users))
+//
+//    // Add User
+//    users.add(user)
+////        Card - To Many - (ranking_within_category - RankingCardWithinCategory - card)
+//let cardrank = RankingCardWithinCategory(context: managedObjectContext)
+////        Category - To Many - ( ranking_of_cards - RankingCardWithinCategory - categories)
+//let categoryrank = RankingCardWithinCategory(context: managedObjectContext)
+////        RankingCardWithinCategory - to One (category - Category - ranking_of_cards)
+//
+////        RankingCardWithinCategory() To One (card - Card - ranking_of_categories)
