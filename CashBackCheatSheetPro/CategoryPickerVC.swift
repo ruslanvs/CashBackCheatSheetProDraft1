@@ -10,7 +10,7 @@ import UIKit
 import CoreData //>> refactor to modularize
 
 class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
+    var categoryPicked = "Grocery Stores"
     var categoryArr = [Category]()
     var cardArr = [Card]()
     var rankingCardInCategoryArr = [RankingCardWithinCategory]()
@@ -23,25 +23,17 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     @IBOutlet weak var pickerView: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 100
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        seedCategories()
-        seedCards()
-        seedRankingCardWithinCategory()
-        printEntities()
-        
-        cardArr = CardModel.shared.getAll()
-        categoryArr = CategoryModel.shared.getAll()
-        rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
 
     }
     override func viewWillAppear(_ animated: Bool){
-        
-        print("Load")
+        refreshView()
         pullFunction()
     }
     
@@ -57,30 +49,30 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
         }
     }
     func refreshView() {
+        print("*****refreshView*****")
         deleteAllCards(cards: cardArr)
         deleteAllCategories(categories: categoryArr)
         deleteAllRankings(rankings: rankingCardInCategoryArr)
+        seedCards(string: self.categoryPicked)
         seedCategories()
-        seedCards()
         seedRankingCardWithinCategory()
-        print("*****refreshView*****")
         cardArr = CardModel.shared.getAll()
         categoryArr = CategoryModel.shared.getAll()
         rankingCardInCategoryArr = RankingCardWithinCategoryModel.shared.getAll()
         tableView.reloadData()
     }
     func deleteAllCategories(categories: [Category]) {
-        print("***** Delete All Cards*****")
+        print("***** Delete All Categories*****")
         for i in categories {
             CategoryModel.shared.delete(i)
         }
     }
     func deleteAllRankings(rankings: [RankingCardWithinCategory]) {
+        print("***** Delete All Categories*****")
         for i in rankings {
             RankingCardWithinCategoryModel.shared.delete(i)
         }
     }
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -96,7 +88,7 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print("click")
-        print("New Category: ", categoryArr[row].name!)
+        self.categoryPicked = categoryArr[row].name!
 //            reorderCards(category: categoryArr[row].name!)
             refreshView()
         
@@ -145,7 +137,9 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 //        }
     }
     
-    func seedCards(){
+    func seedCards(string: String){
+        print("****seed cards ****", self.categoryPicked)
+
         let cards = [
             [
                 "card_title": "Amex Preferred",
@@ -209,8 +203,43 @@ class CategoryPickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDe
 
 
         ]
+//        if string == "Grocery Stores" {
+//            print("Cards[0]:", cards[0])
+//            var cardArray: AnyObject = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//            for i in cardArray {
+//                print("I:", i["card_title"]!)
+//            }
+//        }
+//        if string == "Restaurants & Coffee" {
+//            print("Restaurants & Coffee")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Gas" {
+//            print("Gas")
+//            let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Pharmacies" {
+//            print("Pharmacies")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Wholesale Clubs" {
+//            print("Wholesale Clubs")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Select Department Stores" {
+//            print("Select Department Stores")
+//             let cardSeed = [cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Taxi" {
+//            print("Taxi")
+//             let cardSeed = [[cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
+//        if string == "Other" {
+//            print("Other")
+//             let cardSeed = [[cards[0], cards[1],cards[2],cards[3],cards[4],cards[5],cards[6],cards[7]]
+//        }
         
-        for i in cards {
+        for i in cardArray {
             CardModel.shared.create( title: i["card_title"]!, annual_fee: i["annual_fee"]!, cash_back_terms: i["cash_back_terms"]!, link_to_apply: i["link_to_apply"]!, other_terms: i["other_terms"]! )
         }
         
